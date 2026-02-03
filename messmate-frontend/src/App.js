@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 
 const App = () => (
   <AuthProvider>
@@ -20,7 +21,15 @@ const App = () => (
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
-
+      
+        <Route
+          path="/profile"
+          element={
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+      }
+      />
         <Route
           path="/dashboard"
           element={

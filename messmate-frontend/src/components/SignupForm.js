@@ -3,7 +3,12 @@ import api from '../services/api';
 import '../styles/Auth.css';
 
 const SignupForm = () => {
-  const [form, setForm] = useState({ username: '', password: '' });
+  const [form, setForm] = useState({
+  username: '',
+  email: '',
+  password: ''
+});
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,6 +46,14 @@ const SignupForm = () => {
           placeholder="Password"
           onChange={handleChange}
         />
+
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+        />
+
 
         <button type="submit">Register</button>
       </form>

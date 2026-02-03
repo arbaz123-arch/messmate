@@ -15,6 +15,7 @@ const Navbar = () => {
       <div className="navbar-right">
         {!user && <Link to="/login">Login</Link>}
         {!user && <Link to="/signup">Signup</Link>}
+        {user && <Link to="/profile">Profile</Link>}
         {user && <Link to="/dashboard">Dashboard</Link>}
         {user && <button onClick={logout}>Logout</button>}
       </div>
