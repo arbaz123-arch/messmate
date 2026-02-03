@@ -15,10 +15,11 @@ const { User } = require('../models');
 
 
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  // const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!username || !password)
-    return res.status(400).json({ message: 'Username and password are required.' });
+  if (!username || !email || !password)
+    return res.status(400).json({ message: 'Username, email, and password are required.' });
 
   try {
     const existingUser = await User.findOne({ where: { username } }); // Sequelize
@@ -29,7 +30,11 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({ username, password: hashedPassword }); // Sequelize
+    const newUser = await User.create({
+    username,
+    email,
+    password: hashedPassword
+    }); // Sequelize
     // const newUser = new User({ username, password: hashedPassword }); await newUser.save(); // Mongoose
 
     return res.status(201).json({ message: 'User registered successfully', userId: newUser.id });

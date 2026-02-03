@@ -2,6 +2,8 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const sequelize = require('./config/db');
+const profileRoutes = require('./routes/profile');
+
 
 const app = express();
 
@@ -17,7 +19,7 @@ app.use(express.json());
 // 🔴 3️⃣ Routes AFTER CORS
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-
+app.use('/profile', profileRoutes);
 const messRoutes = require('./routes/messRoutes');
 app.use('/messes', messRoutes);
 
@@ -30,7 +32,8 @@ const PORT = process.env.PORT || 4000;
 sequelize.authenticate()
   .then(() => {
     console.log('✅ PostgreSQL connected via Sequelize');
-    return sequelize.sync();
+    return sequelize.sync({ alter: true });
+
   })
   .then(() => {
     console.log('✅ Models synced to database');
