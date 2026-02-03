@@ -1,37 +1,38 @@
-// import React from 'react';
-// import MessList from './components/MessList';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>MessMate – Find Your Mess</h1>
-//       <MessList />
-//     </div>
-//   );
-// }
+import { AuthProvider } from './context/AuthContext';
 
-// export default App;
+import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+import ProtectedRoute from './components/ProtectedRoute';
 
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 
-import React, { useState } from 'react';
-import MessList from './components/MessList';
-import AddMessForm from './components/AddMessForm';
+const App = () => (
+  <AuthProvider>
+    <Router>
+      <Navbar />
 
-function App() {
-  const [refresh, setRefresh] = useState(false);
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
 
-  const handleMessAdded = () => {
-    setRefresh(!refresh); // Toggle to trigger refresh in MessList
-  };
-
-  return (
-    <div className="App">
-      <h1>MessMate – Manage Mess Listings</h1>
-      <AddMessForm onMessAdded={handleMessAdded} />
-      <hr />
-      <MessList refresh={refresh} />
-    </div>
-  );
-}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  </AuthProvider>
+);
 
 export default App;
+
