@@ -1,34 +1,36 @@
 const express = require('express');
 require('dotenv').config();
-const sequelize = require('./config/db')
-const authRoutes = require('./routes/auth');
+const cors = require('cors');
+const sequelize = require('./config/db');
 
 const app = express();
-app.use(express.json());
-app.use('/auth', authRoutes);
 
-const cors = require('cors');
-
-// app.use(cors()); // 👈 MOST IMPORTANT LINE
+// 🔴 1️⃣ CORS FIRST
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'http://localhost:3000',
+  credentials: true
 }));
 
+// 🔴 2️⃣ Body parser
+app.use(express.json());
 
-const PORT = process.env.PORT || 4000;
+// 🔴 3️⃣ Routes AFTER CORS
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
-// ✅ Import model (IMPORTANT for sync)
-const Mess = require('./models/Mess');
-
-// ✅ Import routes
 const messRoutes = require('./routes/messRoutes');
 app.use('/messes', messRoutes);
 
-// ✅ DB connection + sync + server start
+// 🔴 4️⃣ Models
+const Mess = require('./models/Mess');
+
+const PORT = process.env.PORT || 4000;
+
+// 🔴 5️⃣ DB + server start
 sequelize.authenticate()
   .then(() => {
     console.log('✅ PostgreSQL connected via Sequelize');
-    return sequelize.sync(); // table create karega agar nahi hai
+    return sequelize.sync();
   })
   .then(() => {
     console.log('✅ Models synced to database');
