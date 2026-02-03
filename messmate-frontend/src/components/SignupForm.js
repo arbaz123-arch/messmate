@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../services/api';
+import '../styles/Auth.css';
 
 const SignupForm = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -23,13 +24,30 @@ const SignupForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+  <div className="auth-container">
+    <div className="auth-card">
       <h2>Signup</h2>
-      <input name="username" onChange={handleChange} />
-      <input name="password" type="password" onChange={handleChange} />
-      <button type="submit">Register</button>
-    </form>
-  );
+
+      <form onSubmit={handleSubmit}>
+        <input
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+        />
+
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+);
+
 };
 
 export default SignupForm;

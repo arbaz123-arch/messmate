@@ -1,5 +1,5 @@
 import React from 'react';
-import './MessCard.css';
+import '../styles/MessCard.css';
 
 function MessCard({ mess }) {
   return (

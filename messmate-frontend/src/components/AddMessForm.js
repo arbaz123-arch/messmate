@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../services/api';
-import './AddMessForm.css';
+import '../styles/AddMessForm.css';
 
 function AddMessForm({ onMessAdded }) {
   const [formData, setFormData] = useState({

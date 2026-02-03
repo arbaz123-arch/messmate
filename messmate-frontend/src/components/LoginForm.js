@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Auth.css';
 
 const LoginForm = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -24,12 +25,30 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="username" onChange={handleChange} />
-      <input name="password" type="password" onChange={handleChange} />
-      <button type="submit">Login</button>
-    </form>
-  );
+  <div className="auth-container">
+    <div className="auth-card">
+      <h2>Login</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+        />
+
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+);
+
 };
 
 export default LoginForm;
